@@ -1,0 +1,38 @@
+<html>
+<head>
+  <script src="../bundle.js"></script>
+  <style>
+      .center {
+          margin: auto;
+          width: 60%;
+          padding: 10px;
+      }
+
+      .white-border {
+        border: 1px solid white;
+      }
+      </style>  
+</head>
+<body style="font-family: 'Courier New', Courier, monospace; background-color: #333333; color: white; height: 100%; overflow: hidden;">
+  <table>
+    <tr>
+      <td>
+        <canvas class="white-border"></canvas>
+      </td>
+      <td>
+        <div>
+            <!-- <button onClick="javascript:clearCanvas()">Clear Canvas</button><br> -->
+            <button onClick="javascript:q.render()">Paint background</button><br>
+            <button onClick="javascript:q.drawImage(q.idle[0])">Paint Boxer</button><br>
+            <button onClick="javascript:q.drawImage(q.punch[3])">Paint Boxer Punching</button><br>
+            <button onClick="javascript:window.location = './2.html'">Next</button><br>
+        </div>
+      </td>
+    </tr>
+  </table>
+<script>
+  var q = QuietGameTalk;
+  q.init();
+</script>
+</body>
+</html>

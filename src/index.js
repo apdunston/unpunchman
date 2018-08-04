@@ -2,9 +2,17 @@ global.$ = require("jquery");
 global.jQuery = $;
 global.HC = require("hollow-cart");
 global.HollowCart = HC.HollowCart;
+global.Gamespace = HC.Gamespace;
 
 global.AnimationDisplay = require("./animationDisplay.js");
 global.Boxer = require("./boxer.js");
+global.Boxer1 = require("./boxer.1.js");
+global.Boxer2 = require("./boxer.2.js");
+global.Boxer3 = require("./boxer.3.js");
+global.Boxer4 = require("./boxer.4.js");
+global.Boxer5 = require("./boxer.5.js");
+global.Boxer6 = require("./boxer.6.js");
+global.Boxer7 = require("./boxer.7.js");
 
 var QuietGameTalk = function() {
   

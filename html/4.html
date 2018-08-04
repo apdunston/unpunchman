@@ -23,8 +23,8 @@
         <div>
             <!-- <button onClick="javascript:clearCanvas()">Clear Canvas</button><br> -->
             <button onClick="javascript:window.location = './3.html'">Previous</button><br>
-            <button onClick="javascript:q.idleAnimation();">Idle 1-10</button><br>
-            <button onClick="javascript:q.interrupt = true; q.render();q.drawImage(q.punch[3]);">Paint background AND Paint Boxer Punching</button><br>
+            <button onClick="javascript:boxer.idle();">Idle 1-10</button><br>
+            <button onClick="javascript:boxer.punchLeft();">Punch 1-6</button><br>
             <button onClick="javascript:window.location = './5.html'">Next</button><br>
         </div>
       </td>
@@ -37,7 +37,8 @@
   let canvas = $('canvas')[0];
   let context = canvas.getContext("2d");
   let display = new AnimationDisplay(canvas, context);
-  display.addObject(new Boxer());
+  let boxer = new Boxer1();
+  display.addObject(boxer);
   display.start();
 </script>
 </body>

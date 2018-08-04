@@ -22,9 +22,13 @@
       <td>
         <div>
             <!-- <button onClick="javascript:clearCanvas()">Clear Canvas</button><br> -->
-            <button onClick="javascript:q.render()">Paint background</button><br>
-            <button onClick="javascript:q.drawImage(q.idle[0])">Paint Boxer</button><br>
-            <button onClick="javascript:q.drawImage(q.punch[3])">Paint Boxer Punching</button><br>
+            <button onClick="javascript:square()">Rectangle</button><br>
+            <button onClick="javascript:biggerSquare()">Square</button><br>
+            <button onClick="javascript:nearBackground()">Big Square</button><br>
+            <button onClick="javascript:q.render()">Background</button><br>
+            <button onClick="javascript:q.drawImage(q.idle[0])">Boxer</button><br>
+            <button onClick="javascript:q.drawImage(q.punch[3])">Boxer Punching</button><br>
+            <button onClick="javascript:clearCanvas()">Erase</button><br>            
             <button onClick="javascript:window.location = './2.html'">Next</button><br>
         </div>
       </td>
@@ -33,6 +37,28 @@
 <script>
   var q = QuietGameTalk;
   q.init();
+
+  let canvas = $('canvas')[0];
+  let context = canvas.getContext("2d");
+
+  function square() {
+    context.fillStyle = "#FF0000";
+    context.fillRect(100, 100, 160, 80);
+  }
+
+  function biggerSquare() {
+    context.fillStyle = "#00FF00";
+    context.fillRect(300, 300, 240, 240);
+  }
+
+  function nearBackground() {
+    context.fillStyle = "#000000";
+    context.fillRect(40, 40, canvas.height - 80, canvas.width - 80);
+  }
+
+  function clearCanvas() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
 </script>
 </body>
 </html>

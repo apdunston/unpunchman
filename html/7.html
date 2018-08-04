@@ -22,7 +22,7 @@
       <td>
         <div>
             <!-- <button onClick="javascript:clearCanvas()">Clear Canvas</button><br> -->
-            <button onClick="javascript:window.location = './5.html'">Previous</button><br>
+            <button onClick="javascript:window.location = './6.html'">Previous</button><br>
             <button onClick="javascript:boxer.idle();">Idle</button><br>
             <button onClick="javascript:boxer.punchLeft();">Punch Left</button><br>
             <button onClick="javascript:boxer.punchRight();">Punch Right</button><br>
@@ -30,10 +30,11 @@
             <button onClick="javascript:boxer.dizzy();">Dizzy</button><br>
             <button onClick="javascript:boxer.hurt();">Hurt</button><br>
             <button onClick="javascript:boxer.ko();">KO</button><br>
+            <button onClick="javascript:boxer.ok();">Get Back Up</button><br>
             <button onClick="javascript:boxer.punchUp();">Punch Up</button><br>
             <button onClick="javascript:boxer.walk();">Walk</button><br>
             <button onClick="javascript:boxer.walkBack();">Walk Back</button><br>
-            <button onClick="javascript:window.location = './7.html'">Next</button><br>
+            <button onClick="javascript:window.location = './8.html'">Next</button><br>
         </div>
       </td>
     </tr>
@@ -45,7 +46,7 @@
   let canvas = $('canvas')[0];
   let context = canvas.getContext("2d");
   let display = new AnimationDisplay(canvas, context);
-  let boxer = new Boxer2();
+  let boxer = new Boxer3();
   display.addObject(boxer);
   display.start();
 </script>

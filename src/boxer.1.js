@@ -130,7 +130,7 @@ class Boxer {
     this.punchRightFrames = [];
     this.loadAnimations();
 
-    this.state = STATES.IDLE;
+    this.state = STATES.STOP;
     this.currentFrame = 0;
   }
 
@@ -166,8 +166,8 @@ class Boxer {
       return;
     }
 
-    if (this.state !== STATES.IDLE) {
-      this.idle();
+    if (this.state !== STATES.STOP) {
+      this.stop();
       return;
     }
 
@@ -194,7 +194,7 @@ class Boxer {
     this.currentFrame = 0;
   }
 
-  blocking() {
+  block() {
     this.state = STATES.BLOCKING;
     this.currentFrame = 0;
   }
@@ -226,6 +226,11 @@ class Boxer {
 
   walkBack() {
     this.state = STATES.WALK_BACK;
+    this.currentFrame = 0;
+  }
+
+  stop() {
+    this.state = STATES.STOP;
     this.currentFrame = 0;
   }
 }

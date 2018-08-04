@@ -189,6 +189,7 @@ class Boxer {
       dizzy.src = SOUNDS.DIZZY;
       let walk = new Audio();
       walk.src = SOUNDS.WALK;
+      walk.loop = true;
       let punch = new Audio();
       punch.src = SOUNDS.PUNCH;
       let hurt = new Audio();
@@ -275,6 +276,7 @@ class Boxer {
   }
 
   playSound() {
+    let self = this;
     let sound = this.sounds[this.state];
 
     if (sound != null) {
@@ -306,59 +308,56 @@ class Boxer {
     this.playSound();
   }
 
+  playerSwitchToState(state) {
+    if (this.state !== state) {
+      this.stopSound();
+    }
+
+    this.switchToState(state);
+  }
+
   idle() {
-    this.stopSound();
-    this.switchToState(STATES.IDLE);
+    this.playerSwitchToState(STATES.IDLE);
   }
 
   punchLeft() {
-    this.stopSound();    
-    this.switchToState(STATES.PUNCH_LEFT);
+    this.playerSwitchToState(STATES.PUNCH_LEFT);
   }
 
   punchRight() {
-    this.stopSound();    
-    this.switchToState(STATES.PUNCH_RIGHT);
+    this.playerSwitchToState(STATES.PUNCH_RIGHT);
   }
 
   block() {
-    this.stopSound();    
-    this.switchToState(STATES.BLOCK);
+    this.playerSwitchToState(STATES.BLOCK);
   }
 
   dizzy() {
-    this.stopSound();    
-    this.switchToState(STATES.DIZZY);
+    this.playerSwitchToState(STATES.DIZZY);
   }
 
   hurt() {
-    this.stopSound();    
-    this.switchToState(STATES.HURT);
+    this.playerSwitchToState(STATES.HURT);
   }
 
   ko() {
-    this.stopSound();    
-    this.switchToState(STATES.KO);
+    this.playerSwitchToState(STATES.KO);
   }
 
   punchUp() {
-    this.stopSound();    
-    this.switchToState(STATES.PUNCH_UP);
+    this.playerSwitchToState(STATES.PUNCH_UP);
   }
 
   walk() {
-    this.stopSound();    
-    this.switchToState(STATES.WALK);
+    this.playerSwitchToState(STATES.WALK);
   }
 
   walkBack() {
-    this.stopSound();    
-    this.switchToState(STATES.WALK_BACK);
+    this.playerSwitchToState(STATES.WALK_BACK);
   }
 
   ok() {
-    this.stopSound();    
-    this.switchToState(STATES.OK);
+    this.playerSwitchToState(STATES.OK);
   }
 
   stopBlock() {
@@ -369,12 +368,14 @@ class Boxer {
 
   stopWalk() {
     if (this.state === STATES.WALK) {
+      this.stopSound();
       this.switchToState(this.returnState);
     }
   }
 
   stopWalkBack() {
     if (this.state === STATES.WALK_BACK) {
+      this.stopSound();
       this.switchToState(this.returnState);
     }
   }

@@ -19,7 +19,9 @@ end the player has to let the villain succeed. He turns on his machine
 and it brings Opposite Day to an end. It didn't work as expected because
 them machine. Was built. On opposite day.
 
-## Mechanics
+## Plans
+
+### Mechanics
 
 * Punch somebody and they feel better.
 * When they feel better, they'll try to help you.
@@ -27,6 +29,11 @@ them machine. Was built. On opposite day.
 * Getting hit by a car will heal you.
 * Pits will make you fly up instead of fall down.
 * Spikes and electricity will help you.
+
+### Sprite Sheets
+
+* https://www.gameart2d.com/werewolf-terror-game-sprites.html
+* https://www.gameart2d.com/freebies.html
 
 ### Talk
 

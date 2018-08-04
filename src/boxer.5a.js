@@ -2,7 +2,7 @@ let STATES = {
   IDLE: 0,
   PUNCH_LEFT: 1,
   PUNCH_RIGHT: 2,
-  BLOCKING: 3,
+  BLOCK: 3,
   DIZZY: 4,
   HURT: 5,
   KO: 6,
@@ -42,7 +42,7 @@ FRAMES[STATES.PUNCH_RIGHT] = [
   "../assets/MiniBoxing/MiniBoxingSpriteLite/PunchRight/__Boxing04_PunchRight_004.png",
   "../assets/MiniBoxing/MiniBoxingSpriteLite/PunchRight/__Boxing04_PunchRight_005.png"      
 ];
-FRAMES[STATES.BLOCKING] = [
+FRAMES[STATES.BLOCK] = [
   '../assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_000.png',
   '../assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_001.png',
   '../assets/MiniBoxing/MiniBoxingSpriteLite/Blocking/__Boxing04_Blocking_002.png',
@@ -135,6 +135,15 @@ FRAMES[STATES.OK] = [
   '../assets/MiniBoxing/MiniBoxingSpriteLite/KO/__Boxing04_KO_000.png'   
 ];
 
+SOUNDS = {
+  DIZZY: "../assets/sounds/boxer/dizzy.wav",
+  HURT: "../assets/sounds/boxer/hurt.wav",
+  PUNCH: "../assets/sounds/boxer/punch.wav",
+  WALK: "../assets/sounds/boxer/walk.wav",
+  KO: "../assets/sounds/boxer/ko.wav",
+  OK: "../assets/sounds/boxer/ok.wav"
+}
+
 let BEHAVIOR = {
   LOOP: 1,    // Replay the animation
   STOP: 2,    // Stop on the last frame
@@ -145,7 +154,7 @@ let STATE_BEHAVIOR = {};
 STATE_BEHAVIOR[STATES.IDLE] =         BEHAVIOR.LOOP;
 STATE_BEHAVIOR[STATES.PUNCH_LEFT] =   BEHAVIOR.RETURN;
 STATE_BEHAVIOR[STATES.PUNCH_RIGHT] =  BEHAVIOR.RETURN;
-STATE_BEHAVIOR[STATES.BLOCKING] =     BEHAVIOR.LOOP;
+STATE_BEHAVIOR[STATES.BLOCK] =        BEHAVIOR.LOOP;
 STATE_BEHAVIOR[STATES.DIZZY] =        BEHAVIOR.LOOP;
 STATE_BEHAVIOR[STATES.HURT] =         BEHAVIOR.RETURN;
 STATE_BEHAVIOR[STATES.KO] =           BEHAVIOR.STOP;
@@ -162,9 +171,42 @@ class Boxer {
     this.punchLeftFrames = [];
     this.punchRightFrames = [];
     this.loadAnimations();
+    this.loadSounds();
     this.makeDizzySlower();
     this.repeatAnimation = true;
+    this.returnState = STATES.IDLE;
     this.idle();
+  }
+
+  soundAvailable() {
+    return typeof window.Audio === 'function';
+  }
+
+  loadSounds() {
+    this.sounds = {};
+    if (this.soundAvailable()) {
+      let dizzy = new Audio();
+      dizzy.src = SOUNDS.DIZZY;
+      let walk = new Audio();
+      walk.src = SOUNDS.WALK;
+      let punch = new Audio();
+      punch.src = SOUNDS.PUNCH;
+      let hurt = new Audio();
+      hurt.src = SOUNDS.HURT;
+      let ko = new Audio();
+      ko.src = SOUNDS.KO;
+      let ok = new Audio();
+      ok.src = SOUNDS.OK;
+      this.sounds[STATES.PUNCH_UP] = punch;
+      this.sounds[STATES.PUNCH_LEFT] = punch;
+      this.sounds[STATES.PUNCH_RIGHT] = punch;
+      this.sounds[STATES.DIZZY] = dizzy;
+      this.sounds[STATES.HURT] = hurt;
+      this.sounds[STATES.WALK] = walk;
+      this.sounds[STATES.WALK_BACK] = walk;
+      this.sounds[STATES.KO] = ko;
+      this.sounds[STATES.OK] = ok;
+    }
   }
 
   loadAnimations() {
@@ -222,80 +264,119 @@ class Boxer {
         this.currentFrame -= 1;
         break;
       case BEHAVIOR.RETURN:
-        this.idle();
+        this.switchToState(this.returnState);
+        this.returnState = STATES.IDLE;
     }
   }
 
   render(context) {
     context.drawImage(this.currentAnimation()[this.currentFrame], 10, 50);
-    this.write();
     this.advanceFrame();
   }
 
-  write() {
-    context.fillStyle = "#FF00FF";
-    context.fillRect(100, 10, canvas.width / 3 * 2, 80);
-    context.font = "98px Courier New";
-    context.fillStyle = "#FFFFFF";
-    context.fillText(this.text, 100, 90);
+  playSound() {
+    return;
+    let sound = this.sounds[this.state];
+
+    if (sound != null) {
+      sound.play();
+    }
   }
 
-  setText(text) {
-    this.text = text;
+  stopSound() {
+    let sound = this.sounds[this.state];
+
+    if (sound != null) {
+      sound.pause();
+      sound.currentTime = 0;
+    }
+  }
+
+  switchToState(state) {
+    if (this.state === state) {
+      return;
+    }
+
+    if (this.state === STATES.KO) {
+      this.returnState = state;
+      state = STATES.OK
+    }
+
+    this.state = state;
+    this.currentFrame = 0;
+    this.playSound();
   }
 
   idle() {
-    this.state = STATES.IDLE;
-    this.currentFrame = 0;
+    this.stopSound();
+    this.switchToState(STATES.IDLE);
   }
 
   punchLeft() {
-    this.state = STATES.PUNCH_LEFT;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.PUNCH_LEFT);
   }
 
   punchRight() {
-    this.state = STATES.PUNCH_RIGHT;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.PUNCH_RIGHT);
   }
 
   block() {
-    this.state = STATES.BLOCKING;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.BLOCK);
   }
 
   dizzy() {
-    this.state = STATES.DIZZY;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.DIZZY);
   }
 
   hurt() {
-    this.state = STATES.HURT;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.HURT);
   }
 
   ko() {
-    this.state = STATES.KO;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.KO);
   }
 
   punchUp() {
-    this.state = STATES.PUNCH_UP;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.PUNCH_UP);
   }
 
   walk() {
-    this.state = STATES.WALK;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.WALK);
   }
 
   walkBack() {
-    this.state = STATES.WALK_BACK;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.WALK_BACK);
   }
 
   ok() {
-    this.state = STATES.OK;
-    this.currentFrame = 0;
+    this.stopSound();    
+    this.switchToState(STATES.OK);
+  }
+
+  stopBlock() {
+    if (this.state === STATES.BLOCK) {
+      this.switchToState(this.returnState);
+    }
+  }
+
+  stopWalk() {
+    if (this.state === STATES.WALK) {
+      this.switchToState(this.returnState);
+    }
+  }
+
+  stopWalkBack() {
+    if (this.state === STATES.WALK_BACK) {
+      this.switchToState(this.returnState);
+    }
   }
 }

@@ -52,6 +52,7 @@
 
 
   function keyDown(evt) {
+    boxer.setText(evt.key);
     switch (evt.keyCode) {
       case Gamespace.Q_CODE:
         boxer.punchLeft();
@@ -81,7 +82,6 @@
         boxer.ko();
         break;
     }
-
   }
 
   document.addEventListener("keydown", (evt) => {keyDown(evt) })

@@ -1,0 +1,89 @@
+<html>
+<head>
+  <style>
+      .center {
+          margin: auto;
+          width: 60%;
+          padding: 10px;
+      }
+
+      .white-border {
+        border: 1px solid white;
+      }
+      </style>  
+
+  <!-- The following meta tag is here to keep the Electron security warning happy. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'">
+
+  <script src="../src/index.js"></script>
+
+</head>
+<body style="font-family: 'Courier New', Courier, monospace; background-color: #333333; color: white; height: 100%; overflow: hidden;">
+  <table>
+    <tr>
+      <td>
+        <canvas class="white-border"></canvas>
+      </td>
+      <td>
+        <div>
+            Q, W, and E to punch
+            <br>
+            A and D to walk
+            <br>
+            S to block
+            <br>
+            Z, X, and C for hit effects.
+            <br>
+            <br>
+
+            <button onClick="javascript:window.location = './10.html'">Previous</button><br>
+            <button onClick="javascript:punch.play()">Punch</button><br>
+            <button onClick="javascript:walk.play()">Walk</button><br>
+            <button onClick="javascript:hurt.play()">Hurt</button><br>
+            <button onClick="javascript:dizzy.play()">Dizzy</button><br>
+            <button onClick="javascript:ko.play()">KO</button><br>
+            <button onClick="javascript:ok.play()">OK</button><br>
+            <button onClick="javascript:window.location = './11.html'">Next</button><br>
+
+            <br>
+            <br>
+            Pictures done. Interaction done. Sounds?
+        </div>
+      </td>
+    </tr>
+  </table>
+<script>
+  let AnimationDisplay = require("../src/animationDisplay.js");
+  let Boxer5a = require("../src/boxer.5a.js");
+  var q = QuietGameTalk;
+  q.init();
+
+  let canvas = $('canvas')[0];
+  let context = canvas.getContext("2d");
+
+  SOUNDS = {
+    DIZZY: "../assets/sounds/boxer/dizzy.wav",
+    HURT: "../assets/sounds/boxer/hurt.wav",
+    PUNCH: "../assets/sounds/boxer/punch.wav",
+    WALK: "../assets/sounds/boxer/walk.wav",
+    KO: "../assets/sounds/boxer/ko.wav",
+    OK: "../assets/sounds/boxer/ok.wav"
+  }
+
+  let dizzy = new Audio();
+  dizzy.src = SOUNDS.DIZZY;
+  let walk = new Audio();
+  walk.src = SOUNDS.WALK;
+  walk.loop = true;
+  let punch = new Audio();
+  punch.src = SOUNDS.PUNCH;
+  let hurt = new Audio();
+  hurt.src = SOUNDS.HURT;
+  let ko = new Audio();
+  ko.src = SOUNDS.KO;
+  let ok = new Audio();
+  ok.src = SOUNDS.OK;
+
+</script>
+</body>
+</html>

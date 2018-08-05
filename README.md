@@ -2,6 +2,22 @@
 
 An example game for a talk about making games.
 
+## The Program
+
+### Building
+
+In Mac:
+
+```bash
+electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds
+```
+
+In Windows:
+
+```PowerShell
+electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="Quiet Game Talk"
+```
+
 ## Story
 
 All the citizens of Helping Town were very helpful and happy. But then came

@@ -1,0 +1,61 @@
+<html>
+<head>
+  <style>
+      .center {
+          margin: auto;
+          width: 60%;
+          padding: 10px;
+      }
+
+      .white-border {
+        border: 1px solid white;
+      }
+      </style>  
+
+  <!-- The following meta tag is here to keep the Electron security warning happy. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'">
+
+  <script src="../src/index.js"></script>
+
+</head>
+<body style="font-family: 'Courier New', Courier, monospace; background-color: #333333; color: white; height: 100%; overflow: hidden;">
+  <table>
+    <tr>
+      <td>
+        <canvas class="white-border"></canvas>
+      </td>
+      <td>
+        <div>
+            <!-- <button onClick="javascript:clearCanvas()">Clear Canvas</button><br> -->
+            <button onClick="javascript:window.location = './5.html'">Previous</button><br>
+            <button onClick="javascript:boxer.idle();">Idle</button><br>
+            <button onClick="javascript:boxer.punchLeft();">Punch Left</button><br>
+            <button onClick="javascript:boxer.punchRight();">Punch Right</button><br>
+            <button onClick="javascript:boxer.block();">Block</button><br>
+            <button onClick="javascript:boxer.dizzy();">Dizzy</button><br>
+            <button onClick="javascript:boxer.hurt();">Hurt</button><br>
+            <button onClick="javascript:boxer.ko();">KO</button><br>
+            <button onClick="javascript:boxer.punchUp();">Punch Up</button><br>
+            <button onClick="javascript:boxer.walk();">Walk</button><br>
+            <button onClick="javascript:boxer.walkBack();">Walk Back</button><br>
+            <button onClick="javascript:window.location = './7.html'">Next</button><br>
+        </div>
+      </td>
+    </tr>
+  </table>
+<script>
+  let AnimationDisplay = require("../src/animationDisplay.js");
+  let Boxer2 = require("../src/boxer.2.js");
+
+  var q = QuietGameTalk;
+  q.init();
+
+  let canvas = $('canvas')[0];
+  let context = canvas.getContext("2d");
+  let display = new AnimationDisplay(canvas, context);
+  let boxer = new Boxer2();
+  display.addObject(boxer);
+  display.start();
+</script>
+</body>
+</html>

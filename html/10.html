@@ -1,6 +1,5 @@
 <html>
 <head>
-  <script src="../bundle.js"></script>
   <style>
       .center {
           margin: auto;
@@ -12,6 +11,12 @@
         border: 1px solid white;
       }
       </style>  
+
+  <!-- The following meta tag is here to keep the Electron security warning happy. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'">
+
+  <script src="../src/index.js"></script>
+
 </head>
 <body style="font-family: 'Courier New', Courier, monospace; background-color: #333333; color: white; height: 100%; overflow: hidden;">
   <table>
@@ -32,7 +37,7 @@
             <br>
 
             <button onClick="javascript:window.location = './9.html'">Previous</button><br>
-            <button onClick="javascript:window.location = './11.html'">Next</button><br>
+            <button onClick="javascript:window.location = './10.1.html'">Next</button><br>
 
             <br>
             <br>
@@ -42,6 +47,8 @@
     </tr>
   </table>
 <script>
+  let AnimationDisplay = require("../src/animationDisplay.js");
+  let Boxer5a = require("../src/boxer.5a.js");
   var q = QuietGameTalk;
   q.init();
 

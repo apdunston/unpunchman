@@ -51,6 +51,10 @@ them machine. Was built. On opposite day.
 * https://www.gameart2d.com/werewolf-terror-game-sprites.html
 * https://www.gameart2d.com/freebies.html
 
+### Music
+
+https://www.dl-sounds.com/royalty-free/off-limits/
+
 ### Talk
 
 Sights, Sounds, and Choices

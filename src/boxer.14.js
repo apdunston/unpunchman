@@ -1,5 +1,6 @@
 // hide boxes and remove dots
 // throw an error if you get no grid.
+// faceLeft pulls boundingBox to the left
 
 let GridRectangle = require('./gridRectangle.1')
 let STATES = require('./boxerStates')
@@ -284,6 +285,10 @@ class Boxer {
         height: width * HEIGHT_RATIO,
         grid: this.grid
       })
+    }
+
+    if (this.faceLeft) {
+      this.boundingBox.setX(x - width * 0.6)
     }
   }
   

@@ -1,7 +1,6 @@
 // Communicates between objects and animationDisplay
 let GridRectangle = require('./gridRectangle.1')
 
-
 module.exports = 
 class Scene {
   constructor(grid, animationDisplay) {

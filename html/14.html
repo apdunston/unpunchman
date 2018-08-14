@@ -26,99 +26,67 @@
       </td>
       <td>
         <div>
-            OPPOSITE DAY!!<br><br>
-
-            Q, W, and E to punch
+            -14-<br>
+            W, A, S, and D to move the dot.
             <br>
-            A and D to walk
-            <br>
-            S to block
-            <br>
-            Z, X, and C for hit effects.
+            Shift moves FASTER.
             <br>
             <br>
 
-            <button onClick="javascript:window.location = './12.html'">Previous</button><br>
-            <button onClick="javascript:window.location = './14.html'">Next</button><br>
+            <button onClick="javascript:window.location = './13.html'">Previous</button><br>
+            <button onClick="javascript:window.location = './15.html'">Next</button><br>
 
             <br>
             <br>
-            We're interacting. Let's move around a little.
+            We're on a pixel grid. Now let's get UnPunchMan here.
         </div>
       </td>
     </tr>
   </table>
 <script>
   let AnimationDisplay = require("../src/animationDisplay.js");
-  let Boxer8 = require("../src/boxer.8.js");
+  let Dot = require("../src/dot.1.js");
   var q = QuietGameTalk;
   q.init();
 
   let canvas = $('canvas')[0];
   let context = canvas.getContext("2d");
   let display = new AnimationDisplay(canvas, context);
-  let boxer = new Boxer8({x: 10, y: 50, width: 400});
-  let boxer2 = new Boxer8({x: 200, y: 50, width: 400, faceLeft: true});
-  boxer2.ko();
-  display.addObject(boxer);
-  display.addObject(boxer2);
+  let dot = new Dot({x: 50, y: 100, width: 50});
+  display.addObject(dot);
   display.start();
 
 
   function keyDown(evt) {
     switch (evt.keyCode) {
-      case Gamespace.Q_CODE:
-        boxer.punchLeft();
-        boxer2.improve();
-        break;
       case Gamespace.W_CODE:
-        boxer.punchUp();
-        boxer2.improve();
-        break;
-      case Gamespace.E_CODE:
-        boxer.punchRight();
-        boxer2.improve();
+        dot.up();
         break;
       case Gamespace.A_CODE:
-        boxer.walkBack();
+        dot.left();
         break;
       case Gamespace.S_CODE:
-        boxer.block();
+        dot.down();
         break;
       case Gamespace.D_CODE:
-        boxer.walk();
-        break;
-      case Gamespace.Z_CODE:
-        boxer.hurt();
-        break;
-      case Gamespace.X_CODE:
-        boxer.dizzy();
-        break;
-      case Gamespace.C_CODE:
-        boxer.ko();
+        dot.right();
         break;
     }
 
-    console.log(boxer2.getState());
+    if (evt.key == "Shift") {
+      dot.shiftOn();
+    }
+
   }
 
   function keyUp(evt) {
-    switch (evt.keyCode) {
-      case Gamespace.A_CODE:
-        boxer.stopWalkBack();
-        break;
-      case Gamespace.S_CODE:
-        boxer.stopBlock();
-        break;
-      case Gamespace.D_CODE:
-        boxer.stopWalk();
-        break;
+    if (evt.key == "Shift") {
+      dot.shiftOff();
     }
-
   }
-
   document.addEventListener("keydown", (evt) => {keyDown(evt) })
   document.addEventListener("keyup", (evt) => {keyUp(evt) })
 </script>
+14
 </body>
 </html>

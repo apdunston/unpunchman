@@ -1,0 +1,117 @@
+<html>
+<head>
+  <style>
+      .center {
+          margin: auto;
+          width: 60%;
+          padding: 10px;
+      }
+
+      .white-border {
+        border: 1px solid white;
+      }
+      </style>  
+
+  <!-- The following meta tag is here to keep the Electron security warning happy. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'">
+
+  <script src="../src/index.js"></script>
+
+</head>
+<body style="font-family: 'Courier New', Courier, monospace; background-color: #333333; color: white; height: 100%; overflow: hidden">
+  <table>
+    <tr>
+      <td>
+        <canvas class="white-border"></canvas>
+      </td>
+      <td>
+        <div>
+          -16-<br>
+            A and D to move the boxer.
+            <br>
+            The boxer pictures are bigger than they look. They contain a lot of empty space.
+            That way, the pictures of the boxer on the ground are the same size as the pictures
+            of the boxer standing up.
+            <br>
+            <br>
+
+            <button onClick="javascript:window.location = './15.html'">Previous</button><br>
+            <button onClick="javascript:window.location = './17.html'">Next</button><br>
+
+            <br>
+            <br>
+            Now he moves around. Let's get his other behaviors back.
+        </div>
+      </td>
+    </tr>
+  </table>
+<script>
+  let AnimationDisplay = require("../src/animationDisplay.2")
+  let Grid = require("../src/grid.1")
+  let GridRectangle = require("../src/gridRectangle.1")
+  let Boxer = require("../src/boxer.10")
+
+
+  var q = QuietGameTalk
+  q.init()
+
+  let canvas = $('canvas')[0]
+  let context = canvas.getContext("2d")
+  let display = new AnimationDisplay(canvas, context)
+  let grid = new Grid(canvas)
+  let boxer = new Boxer({grid: grid, x: 3, y: 3, width: 3})
+  display.addObject(boxer)
+  display.start()
+
+
+  function keyDown(evt) {
+    switch (evt.keyCode) {
+      case Gamespace.Q_CODE:
+        boxer.punchLeft();
+        break;
+      case Gamespace.W_CODE:
+        boxer.punchUp();
+        break;
+      case Gamespace.E_CODE:
+        boxer.punchRight();
+        break;
+      case Gamespace.A_CODE:
+        boxer.walkBack();
+        break;
+      case Gamespace.S_CODE:
+        boxer.block();
+        break;
+      case Gamespace.D_CODE:
+        boxer.walk();
+        break;
+      case Gamespace.Z_CODE:
+        boxer.hurt();
+        break;
+      case Gamespace.X_CODE:
+        boxer.dizzy();
+        break;
+      case Gamespace.C_CODE:
+        boxer.ko();
+        break;
+    }
+  }
+
+  function keyUp(evt) {
+    switch (evt.keyCode) {
+      case Gamespace.A_CODE:
+        boxer.stopWalkBack();
+        break;
+      case Gamespace.S_CODE:
+        boxer.stopBlock();
+        break;
+      case Gamespace.D_CODE:
+        boxer.stopWalk();
+        break;
+    }
+
+  }
+  document.addEventListener("keydown", (evt) => {keyDown(evt) })
+  document.addEventListener("keyup", (evt) => {keyUp(evt) })
+</script>
+</body>
+</html>

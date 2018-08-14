@@ -5,7 +5,6 @@ global.HollowCart = HC.HollowCart;
 global.Gamespace = HC.Gamespace;
 
 
-console.log("Howdy!");
 var QuietGameTalk = function() {
   
   var idle = [

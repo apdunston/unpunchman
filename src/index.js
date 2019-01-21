@@ -1,3 +1,4 @@
+let global = {};
 global.$ = require("jquery");
 global.jQuery = $;
 global.HC = require("hollow-cart");

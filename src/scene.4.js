@@ -1,7 +1,6 @@
-// Communicates between objects and animationDisplay
-
-// Accept scene numbers
-// start and stop
+// goTo functions each take a beforeSceneStart function
+// concept of running
+// previousscene functions
 
 let GridRectangle = require('./gridRectangle.1')
 
@@ -13,6 +12,7 @@ class Scene {
     this.animationDisplay.setScene(this)
     this.grid = grid
     this.number = number
+    this.running = false
 
     this.boundingBox = new GridRectangle({
       x: 0,
@@ -47,6 +47,12 @@ class Scene {
   }
 
   tick() {
+    if (!this.running) {
+      return
+    }
+
+    console.log("Scene " + this.number + " tick")
+
     let self = this
     for (var x = 0; x < this.objects.length; x++) {
       if (this.objects[x].tick !== undefined) {
@@ -81,15 +87,18 @@ class Scene {
   }
 
   start() {
-    console.log("Starting scene ", this.numberd)    
+    console.log("Starting scene ", this.number)    
     this._forEachObject((object) => {
       if(object.onSceneStart !== undefined) {
         object.onSceneStart(this)
       }
     })
+    this.running = true
   }
 
   stop() {
+    console.log("scene " + this.number + " stop")
+    this.running = false
     this.stopMusic()
     this._forEachObject((object) => {
       if(object.onSceneStop !== undefined) {
@@ -98,26 +107,47 @@ class Scene {
     })
   }
 
-  goToNextScene() {
+  goToNextScene(beforeSceneStart) {
+    console.log("scene " + this.number + " gotonext")
     this.stop()
     let next = this.getNextScene()
     this.animationDisplay.setScene(next)
+
+    if (beforeSceneStart !== undefined) {
+      beforeSceneStart(next)
+    }
+
     next.start()
   }
 
-  goToPreviousScene() {
+  goToPreviousScene(beforeSceneStart) {
+    console.log("scene gotoprevious")
     if (this.previousScene === undefined) {
       console.log("No previous scene")
       return
     }
     this.stop()
     this.animationDisplay.setScene(this.previousScene)
+
+    if (beforeSceneStart !== undefined) {
+      beforeSceneStart(this.previousScene)
+    }
+
     this.previousScene.start()
   }
 
   getNextScene() {
     return this
   }
+
+  getPreviousScene() {
+    return this.previousScene
+  }
+
+  setPreviousScene(value) {
+    this.previousScene = value
+  }
+
 
   _forEachObject(fun) {
     for (let x = 0; x < this.objects.length; x++) {

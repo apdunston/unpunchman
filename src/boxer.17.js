@@ -1,5 +1,6 @@
-// Boxes display configurable showPunchBox, showImageBox, showBoundingBox
+// thing2
 
+let Thing = require('./thing.2')
 let GridRectangle = require('./gridRectangle.1')
 let STATES = require('./boxerStates')
 let FRAMES = require('./boxerFrames')
@@ -7,30 +8,37 @@ let SOUNDS = require('./boxerSounds')
 let BEHAVIOR = require ('./animationBehavior')
 let STATE_BEHAVIOR = require('./boxerStateBehavior')
 
+let HEIGHT_RATIO = 1.45
 let MOVE_LENGTH = 0.1;
-let HEIGHT_RATIO = 1.6
 let IMAGE_RATIO = 2.3
 let IMAGE_X_OFFSET_RATIO = 0.95
 let IMAGE_Y_OFFSET_RATIO = 0.5
 
 module.exports = 
-class Boxer {
+class Boxer extends Thing {
   constructor(input) {
-    this._validate(input)
+    input.imageRatio = IMAGE_RATIO
+    input.heightRatio = HEIGHT_RATIO
+    input.imageXOffsetRatio = IMAGE_X_OFFSET_RATIO
+    input.imageYOffsetRatio = IMAGE_Y_OFFSET_RATIO
+    super(input)
     this._loadAnimations();
     this._loadSounds();
     this._makeDizzySlower();
-    this.grid = input.grid;
     this.faceLeft = input.faceLeft === undefined ? false : input.faceLeft;
     this.returnState = STATES.IDLE;
     this.idle();
     this._setBoxes(input)
     this.showPunchBox = input.showPunchBox
-    this.showImageBox = input.showImageBox
-    this.showBoundingBox = input.showBoundingBox
+  }
+
+  setX(value) {
+    super.setX(value)
+    this.punchBox.setX(value + 1)
   }
 
   render(context) {  
+    super.render(context)
     let currentImage = this._currentAnimation()[this.currentFrame];
 
     if (this.faceLeft) {
@@ -44,49 +52,14 @@ class Boxer {
     if (this.showPunchBox !== undefined) {
       this._drawPunchBox(context);
     }
-
-    if (this.showImageBox !== undefined) {
-      this._drawImageBox(context);
-    }
-
-    if (this.showBoundingBox !== undefined) {
-      this._drawBoundingBox(context);
-    }
   }
-
-  getX() {
-    return this.imageBox.getX()
-  }
-
-  getY() {
-    return this.imageBox.getY()
-  }
-
-  setX(value) {
-    this.imageBox.setX(value)
-  }
-
-  setY(value) {
-    this.imageBox.setY(value)
-  }
-
-  xPixels() {
-    return this.boundingBox.xPixels();
-  }
-
-  yPixels() {
-    return this.boundingBox.yPixels();
-  }  
 
   getState() {
     return this.state;
   }
 
-  getBoundingBox() {
-    return this.boundingBox
-  }
-
   tick(scene) {
+    super.tick(scene)
     this._handleMovement(scene);
   }
 
@@ -230,12 +203,6 @@ class Boxer {
     this.currentFrame = this._currentAnimation().length - 1
   }
 
-  _validate(input) {
-    if (input.grid === undefined) {
-      throw new Error("Cannot instantiate a boxer (or any scene object) without a grid.")
-    }
-  }
-
   _moveLength() {
     if (this.shiftMode) {
       return MOVE_LENGTH * 10;
@@ -268,31 +235,16 @@ class Boxer {
   }
 
   _setBoxes(input) {
+    super._setBoxes(input)
     let x = input.x === undefined ? 0 : input.x;
     let y = input.y === undefined ? 0 : input.y;
     let width = input.width === undefined ? 1 : input.width
     
-    this.boundingBox = new GridRectangle({
-      x: x,
-      y: y,
-      width: width,
-      height: width * HEIGHT_RATIO,
-      grid: this.grid
-    })
-
-    this.imageBox = new GridRectangle({
-      x: x - width * IMAGE_X_OFFSET_RATIO, 
-      y: y - width * IMAGE_Y_OFFSET_RATIO,
-      width: width * IMAGE_RATIO,
-      height: width * IMAGE_RATIO,
-      grid: this.grid
-    })
-
     this.punchBox = new GridRectangle({
         x: x + 1,
         y: y,
         width: 1,
-        height: width * HEIGHT_RATIO,
+        height: input.height || (width * HEIGHT_RATIO),
         grid: this.grid
     })
 
@@ -318,31 +270,10 @@ class Boxer {
     context.restore()
   }
   
-  _drawBox(context, gridRectangle, color, lineWidth) {
-    context.beginPath();  
-    context.rect(gridRectangle.xPixels(), gridRectangle.yPixels(),
-    gridRectangle.widthPixels(), gridRectangle.heightPixels());
-    context.lineWidth = lineWidth;
-    context.strokeStyle = color
-    context.stroke();        
-  }
-
   _drawPunchBox(context) {
     this._drawBox(context, this.punchBox, "#00FF00", 2)
   }
-
-  _drawBoundingBox(context) {
-    this._drawBox(context, this.boundingBox, "#0000FF", 4)
-  }
   
-  _drawImageBox(context) {
-    this._drawBox(context, this.imageBox, "#666666", 7)
-  }
-  
-  _soundAvailable() {
-    return typeof window.Audio === 'function';
-  }
-
   _loadSounds() {
     this.sounds = {};
     if (this._soundAvailable()) {

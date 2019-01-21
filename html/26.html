@@ -26,7 +26,7 @@
       </td>
       <td>
         <div>
-          -24-
+          -26-
           <br>
             A and D to move the boxer.
             Q, W, and E to UnPunch.
@@ -34,7 +34,7 @@
             <br>
             <br>
 
-            <button onClick="javascript:window.location = './23.html'">Previous</button><br>
+            <button onClick="javascript:window.location = './25.html'">Previous</button><br>
             <br>
             <button onClick="javascript:scene.startMusic()">Start Music</button><br>
             <button onClick="javascript:scene.stopMusic()">Stop Music</button><br>
@@ -45,12 +45,14 @@
             <button onClick="javascript:display.slower();">Slower</button><br>
             <button onClick="javascript:display.faster();">Faster</button><br>
             <br>
-            <button onClick="javascript:window.location = './25.html'">Next</button><br>
+            <button onClick="javascript:window.location = './27.html'">Next</button><br>
 
             <br>
             <br>
-            Now we have multiple scenes we can go back and forth between.
-            Also, slowing things down shows the draw order.
+            Now the doors at either side of the scene take us back and forth.
+            <br>
+            <br>
+            Okay, but I want the UnPunchMan to go back to the left side, and I want the doors to turn invisible.
         </div>
       </td>
     </tr>
@@ -59,8 +61,8 @@
   let AnimationDisplay = require("../src/animationDisplay.6")
   let Grid = require("../src/grid.1")
   let GridRectangle = require("../src/gridRectangle.1")
-  let Bushes = require("../src/bushes.4")
-  let Boxer = require("../src/boxer.15")
+  let Bushes = require("../src/bushes.6")
+  let Boxer = require("../src/boxer.16")
   
   var q = QuietGameTalk
   q.init()
@@ -71,10 +73,11 @@
   let display = new AnimationDisplay(canvas, context)
   let grid = new Grid(canvas)
 
-  let scene = new Bushes(grid, display)
+  let scene = new Bushes(grid, display, 1)
   let boxer = new Boxer({grid: grid, x: 0, y: 6, width: 1.5})
   scene.setPlayer(boxer) // UnPunchMan on top
   display.start()
+  scene.start()
 
   function keyDown(evt) {
     switch (evt.keyCode) {

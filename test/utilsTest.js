@@ -10,7 +10,6 @@ describe('UtilsTest', () => {
 
     for (let x = 0; x < 1000; x++) {
       let number = Utils.random(min, max)
-      console.log(number)
       if (number === min) { foundMin = true }
       if (number === max) { foundMax = true }
 

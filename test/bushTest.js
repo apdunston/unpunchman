@@ -223,23 +223,26 @@ describe('BushTest', () => {
             moveBoxerFarRight()
           },
           () => {
-            // scene.goToNextScene()
             assert(display.getScene() == scene2, "Display is not on scene2")
             scene1Ticks = object.ticks  
           },
           () => {
             restartDisplay()
-            scene2.goToPreviousScene()
+            moveBoxerToMiddle()
+          },
+          () => {
+            restartDisplay()
+            moveBoxerFarLeft()
             scene2Ticks = object2.ticks  
           },
           (done) => {
             restartDisplay()
+            assert(display.getScene() == scene, "Display is not on scene1. It's on scene: " + display.getScene().number)
             scene.stop()
             assert(scene1Ticks > 0, "Scene 1 didn't start the first time")
             assert(scene2Ticks > 0, "Scene 2 didn't start at all")
             assert(object.ticks > scene1Ticks, "Scene 1 didn't resume")
             assert(object2.ticks == scene2Ticks, "Scene 2 didn't stop")
-            assert(display.getScene() == scene, "Display is not on scene1")
             clearInterval(interval)
             done()
           }

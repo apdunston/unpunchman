@@ -4,6 +4,15 @@ An example game for a talk about making games.
 
 ## The Program
 
+### Dev Mode
+
+This program is currently optimized for Electron, not browser use. To run it:
+
+```
+npm install
+npm run-script electron
+```
+
 ### Building
 
 In Mac:
@@ -17,6 +26,12 @@ In Windows:
 ```PowerShell
 electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="Quiet Game Talk"
 ```
+
+## Dependencies
+
+`jsdom` is there so we can have browser-like capabilities (requestAnimationFrame) in tests
+
+`jquery-visible` is there so we can ask `canvas.visible()` for window resizing purposes.
 
 ## Story
 

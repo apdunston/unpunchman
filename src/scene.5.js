@@ -1,7 +1,4 @@
-// goTo functions each take a beforeSceneStart function
-// concept of running
-// previousscene functions
-
+// don't set animationDisplay's scene in the constructor
 let GridRectangle = require('./gridRectangle.1')
 
 module.exports = 
@@ -9,7 +6,6 @@ class Scene {
   constructor(grid, animationDisplay, number) {
     this.objects = []
     this.animationDisplay = animationDisplay
-    this.animationDisplay.setScene(this)
     this.grid = grid
     this.number = number
     this.running = false
@@ -47,10 +43,9 @@ class Scene {
   }
 
   tick() {
-    //!!ADRIAN - uncomment me
-    // if (!this.running) {
-    //   return
-    // }
+    if (!this.running) {
+      return
+    }
 
     console.log("Scene " + this.number + " tick")
 
@@ -99,10 +94,10 @@ class Scene {
 
   stop() {
     let self = this
-    console.log("scene " + this.number + " stop")
-    this.running = false
-    this.stopMusic()
-    this._forEachObject((object) => {
+    console.log("scene " + self.number + " stop")
+    self.running = false
+    self.stopMusic()
+    self._forEachObject((object) => {
       if(object.onSceneStop !== undefined) {
         object.onSceneStop(self)
       }

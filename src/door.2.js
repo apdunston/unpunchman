@@ -1,6 +1,6 @@
 // take a function
 
-let Thing = require('./thing.1')
+let Thing = require('./thing.2')
 
 let IMAGE_RATIO = 2.3
 let IMAGE_X_OFFSET_RATIO = 0.95

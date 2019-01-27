@@ -1,9 +1,12 @@
 let global = {};
 global.$ = require("jquery");
+let $ = global.$
 global.jQuery = $;
 global.HC = require("hollow-cart");
+let HC = global.HC
 global.HollowCart = HC.HollowCart;
 global.Gamespace = HC.Gamespace;
+let Gamespace = global.Gamespace
 
 
 var QuietGameTalk = function() {
@@ -32,7 +35,7 @@ var QuietGameTalk = function() {
 
   function init() {
     this.hollowCart = new HollowCart();
-    this.hollowCart.adjustCanvas(1,1);
+    this.hollowCart.adjustCanvas(1,1, $('canvas'));
     
 
     this.displaySpeed = 100;

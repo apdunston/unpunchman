@@ -45,31 +45,31 @@ class AnimationDisplay {
   mainLoop() {
     let self = this;
     
-    if (!this.running) {
+    if (!self.running) {
       return;
     }
-    if (this.frame < this.slowness) {
-      this.frame += 1;
+    if (self.frame < self.slowness) {
+      self.frame += 1;
       window.requestAnimationFrame(() => self.mainLoop())
       return;
     } else {
-      this.frame = 0;
+      self.frame = 0;
     }
 
-    if (this.scene !== undefined) {
-      this.scene.tick()
+    if (self.scene !== undefined) {
+      self.scene.tick()
     }
 
-    this._resetCounter()
+    self._resetCounter()
 
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    let objects = this.scene.getObjects()
+    self.context.clearRect(0, 0, self.canvas.width, self.canvas.height)
+    let objects = self.scene.getObjects()
 
-    for (var x = 0; x < this.counter; x++) {
-      objects[x].render(context);
+    for (var x = 0; x < self.counter; x++) {
+      objects[x].render(self.context);
     }    
     window.requestAnimationFrame(() => self.mainLoop())
-    this.counter += 1
+    self.counter += 1
   }
 
   _resetCounter() {

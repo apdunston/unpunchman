@@ -11,27 +11,29 @@
   "author": "Adrian P. Dunston I",
   "license": "MIT",
   "dependencies": {
-    "electron": "^2.0.0",
+    "electron": "^2.0.16",
     "hammerjs": "^2.0.8",
-    "hollow-cart": "file:../hollow-cart",
     "jquery": "^3.3.1",
     "jquery-visible": "^1.2.0",
-    "npm": "^6.1.0",
-    "tone": "^0.12.80"
+    "npm": "^6.6.0",
+    "tone": "^0.12.80",
+    "hollow-cart": "file:../hollow-cart"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babelify": "^8.0.0",
-    "browserify": "^16.2.2",
-    "budo": "^11.2.2",
-    "electron-packager": "^12.1.0",
+    "browserify": "^16.2.3",
+    "budo": "^11.6.0",
+    "electron-packager": "^12.2.0",
     "mocha": "^5.2.0",
-    "uglify-js": "^3.4.0"
+    "uglify-js": "^3.4.9",
+    "jsdom": "^13.1.0"
   },
   "scripts": {
     "test": "mocha",
-    "start": "budo src/index.js:bundle.js --live",
+    "start": "electron .",
+    "old-start": "budo src/index.js:bundle.js --live",
     "build": "browserify src/index.js  -t [ babelify --presets [ \"babel-preset-env\" ] ] > bundle.js",
     "package": "browserify src/index.js | uglifyjs -cm > bundle.js",
     "electron": "electron ."

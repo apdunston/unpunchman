@@ -14,6 +14,7 @@ class Door extends Thing {
     input.imageYOffsetRatio = IMAGE_Y_OFFSET_RATIO
     super(input)
     this.function = input.function
+    this.name = input.name
   }
 
   onSceneStart(scene) {
@@ -22,6 +23,8 @@ class Door extends Thing {
   }
 
   tick(scene) {
+    console.log(this.name + " ticked by scene " + scene.number)
+
     if (!this.readied) {
       this.readied = !this._playerColliding(scene)
       return
@@ -58,6 +61,7 @@ class Door extends Thing {
 
   _entered(scene) {
     this.entered = true
+    console.log(this.name + " has been entered")
     if (this.function !== undefined) {
       this.function(scene)
     }

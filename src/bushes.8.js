@@ -7,11 +7,13 @@ let Door = require('./door.2')
 
 let BACKGROUND_SRC = "../assets/backgrounds/bushes.jpg"
 let MUSIC_SRC = "../assets/music/Off Limits.wav"
+const RIGHT_DOOR_BLOCKS_OFFSET = 0.4 // Without this, he gets stuck on the right side of the screen.
 
 module.exports = class Bushes extends Scene {
   constructor(grid, animationDisplay, number) {
     super(grid, animationDisplay, number)
-    this.addObject(new Background(BACKGROUND_SRC))
+    var self = this
+    self.addObject(new Background(BACKGROUND_SRC))
 
     let numberOfBoxers = Utils.random(1, 3)
 
@@ -19,32 +21,34 @@ module.exports = class Bushes extends Scene {
       let xCoord = Utils.random(1, grid.getNumberOfBlocksAcross() - 1)
       let boxer = new Boxer({grid: grid, x: xCoord, y: 6, width: 1.5, faceLeft: true});
       boxer.startKO()
-      this.addObject(boxer)
+      self.addObject(boxer)
     }
 
-    this.addObject(new Door({
+    self.addObject(new Door({
+      name: "Scene " + number + " left door",
       grid: grid,
       x: 0,
       y: 6,
       width: 1,
       height: 2.2,
       showBoundingBox: false,
-      function: (scene) => this.goToPreviousScene()
+      function: (scene) => self.goToPreviousScene()
     }))
 
-    this.addObject(new Door({
+    self.addObject(new Door({
+      name: "Scene " + number + " right door",
       grid: grid,
       x: 9,
       y: 6,
       width: 1,
       height: 2.2,
       showBoundingBox: false,
-      function: (scene) => this.goToNextScene()
+      function: (scene) => self.goToNextScene()
     }))
 
-    this.audio = new Audio(MUSIC_SRC)
-    this.audio.volume = 0.10
-    this.audio.loop = true
+    self.audio = new Audio(MUSIC_SRC)
+    self.audio.volume = 0.10
+    self.audio.loop = true
   }
 
   getNextScene() {
@@ -78,7 +82,7 @@ module.exports = class Bushes extends Scene {
 
     let fun = (scene) => {
       console.log("Bushes previous scene beforestartfunction")
-      this.player.setX(this.grid.getNumberOfBlocksAcross() - 1)
+      this.player.setX(this.grid.getNumberOfBlocksAcross() - 1 - RIGHT_DOOR_BLOCKS_OFFSET)
 
       if (beforeStartFunction !== undefined) {
         beforeStartFunction(scene)

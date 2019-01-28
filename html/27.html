@@ -61,7 +61,7 @@
   let AnimationDisplay = require("../src/animationDisplay.6")
   let Grid = require("../src/grid.1")
   let GridRectangle = require("../src/gridRectangle.1")
-  let Bushes = require("../src/bushes.7")
+  let Bushes = require("../src/bushes.8")
   let Boxer = require("../src/boxer.17")
   
   var q = QuietGameTalk
@@ -74,6 +74,7 @@
   let grid = new Grid(canvas)
 
   let scene = new Bushes(grid, display, 1)
+  display.setScene(scene)
   let boxer = new Boxer({grid: grid, x: 0, y: 6, width: 1.5, showBoundingBox: true})
   scene.setPlayer(boxer) // UnPunchMan on top
   display.start()

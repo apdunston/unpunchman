@@ -43,16 +43,15 @@ class Scene {
   }
 
   tick() {
-    if (!this.running) {
+    let self = this
+
+    if (!self.running) {
       return
     }
 
-    console.log("Scene " + this.number + " tick")
-
-    let self = this
-    for (var x = 0; x < this.objects.length; x++) {
-      if (this.objects[x].tick !== undefined) {
-        this.objects[x].tick(self)
+    for (var x = 0; x < self.objects.length; x++) {
+      if (self.running && self.objects[x].tick !== undefined) {
+        self.objects[x].tick(self)
       }
     }
   }

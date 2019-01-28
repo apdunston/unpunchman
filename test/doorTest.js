@@ -28,7 +28,7 @@ let scene = {
 }
 
 describe('DoorTest', () => {
-  it.only('calls its function when entered', () => {
+  it('calls its function when entered', () => {
     let functionFiredTimes = 0
     let functionArg = null
     let fun = (scene) => {

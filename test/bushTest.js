@@ -8,6 +8,7 @@ const WAIT_TIME = (MAX_TICKS + HEDGE) * TICK_TIME
 
 
 let assert = require('assert')
+
 let Rectangle = require('../src/rectangle.1')
 let AnimationDisplay = require('../src/animationDisplay.6')
 let Grid = require('../src/grid.1')
@@ -15,19 +16,11 @@ let GridRectangle = require('../src/gridRectangle.1')
 let Bushes = require('../src/bushes.8')
 let Boxer = require('../src/boxer.17')
 
-let canvas = {width: 100, height: 100}
-let context = {
-  clearRect: () => {}, 
-  canvas: canvas,
-  drawImage: () => {},
-  save: () => {},
-  translate: () => {},
-  scale: () => {},
-  restore: () => {},
-  beginPath: () => {},
-  rect: () => {},
-  stroke: () => {}
-}
+let TestSupport = require('./test_support.js')
+console.log(TestSupport)
+
+let context = TestSupport.context
+let canvas = context.canvas
 
 global.ticks = 0
 global.document = document
@@ -208,7 +201,7 @@ describe('BushTest', () => {
 
     describe('.goToNextScene and .goToPreviousScene by moving the boxer', () => {
       // Because there's a bug where the door won't go to the previous scene
-      it.only('should actually go to the next scene, then go back, and each scene should have ticks', (done) => {
+      it('should actually go to the next scene, then go back, and each scene should have ticks', (done) => {
         scene2 = scene.getNextScene()
         object2 = getObject()
         scene2.addObject(object2)

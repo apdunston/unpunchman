@@ -75,10 +75,10 @@ describe('BushTest', () => {
     display.start()
   }
 
-  function performClausesAtIntervals(clauses, waitTime, done) {
+  function performStepsAtIntervals(steps, waitTime, done) {
     let clauseIndex = 0
     let nextClause = () => {
-      clauses[clauseIndex](done)
+      steps[clauseIndex](done)
       clauseIndex += 1
     }
     interval = setInterval(nextClause, waitTime)
@@ -178,7 +178,7 @@ describe('BushTest', () => {
       let scene1Ticks = 0
       let scene2Ticks = 0
 
-      let clauses = [
+      let steps = [
         () => {
           restartDisplay()
           scene.goToNextScene()
@@ -203,7 +203,7 @@ describe('BushTest', () => {
         }
       ]
 
-      performClausesAtIntervals(clauses, WAIT_TIME/2, done)
+      performStepsAtIntervals(steps, WAIT_TIME/2, done)
     })
 
     describe('.goToNextScene and .goToPreviousScene by moving the boxer', () => {
@@ -217,7 +217,7 @@ describe('BushTest', () => {
         let scene1Ticks = 0
         let scene2Ticks = 0
   
-        let clauses = [
+        let steps = [
           () => {
             restartDisplay()
             moveBoxerFarRight()
@@ -248,7 +248,7 @@ describe('BushTest', () => {
           }
         ]
  
-        performClausesAtIntervals(clauses, WAIT_TIME/2, done)
+        performStepsAtIntervals(steps, WAIT_TIME/2, done)
       })
     })
   })

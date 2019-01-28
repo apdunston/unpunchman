@@ -1,53 +1,23 @@
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const { document } = new JSDOM('<!doctype html><html><body></body></html>').window
-const MAX_TICKS = 20
-const TICK_TIME = 5
-const HEDGE = 30
-const WAIT_TIME = (MAX_TICKS + HEDGE) * TICK_TIME
-
-
 let assert = require('assert')
 
-let Rectangle = require('../src/rectangle.1')
 let AnimationDisplay = require('../src/animationDisplay.6')
-let Grid = require('../src/grid.1')
-let GridRectangle = require('../src/gridRectangle.1')
 let Bushes = require('../src/bushes.8')
 let Boxer = require('../src/boxer.17')
 
 let TestSupport = require('./test_support.js')
-console.log(TestSupport)
-
+const WAIT_TIME = TestSupport.WAIT_TIME
+const MAX_TICKS = TestSupport.MAX_TICKS
 let context = TestSupport.context
-let canvas = context.canvas
+let canvas = TestSupport.canvas
+let grid = TestSupport.grid
 
-global.ticks = 0
-global.document = document
-global.window = document.defaultView
 
 // Mocks
-global.requestAnimationFrame = callback => {
-    console.log("requestAnimationFrame")
-    if (global.ticks < MAX_TICKS) {
-      setTimeout(callback, TICK_TIME)
-      global.ticks += 1
-    }
-};
-global.window.requestAnimationFrame = global.requestAnimationFrame
-function Image() {this.src = "SRC_VALUE"; this.width = 5;}
-global.Image = Image
-global.GridRectangle = GridRectangle
-function Audio() {
-  this.pause = () => {}
-}
-global.Audio = Audio
 
 describe('BushTest', () => {
   let display = null
   let object = null
   let scene = null
-  let grid = null
   let boxer = null
   let interval = null
 
@@ -92,7 +62,6 @@ describe('BushTest', () => {
   beforeEach((done) => {  
     global.ticks = 0
     display = new AnimationDisplay(canvas, context)
-    grid = new Grid(canvas)
     object = getObject()
   
     scene = new Bushes(grid, display, 1)

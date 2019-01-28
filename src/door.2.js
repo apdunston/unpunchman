@@ -44,6 +44,14 @@ class Door extends Thing {
     }
   }
 
+  getReadied() {
+    return this.readied
+  }
+
+  getBoundingBox() {
+    return this.boundingBox
+  }
+
   _playerColliding(scene) {
     return this.boundingBox.overlapping(scene.getPlayer().getBoundingBox())
   }

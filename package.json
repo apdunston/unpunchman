@@ -15,7 +15,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "^3.3.1",
     "jquery-visible": "^1.2.0",
-    "npm": "^6.6.0",
+    "npm": "^6.14.18",
     "tone": "^0.12.80",
     "hollow-cart": "file:../hollow-cart"
   },
@@ -26,7 +26,7 @@
     "browserify": "^16.2.3",
     "budo": "^11.6.0",
     "electron-packager": "^12.2.0",
-    "mocha": "^5.2.0",
+    "mocha": "^10.2.0",
     "uglify-js": "^3.4.9",
     "jsdom": "^13.1.0"
   },
